@@ -1,0 +1,23 @@
+{
+  "name": "geopagos",
+  "version": "1.0.0",
+  "description": "API RESTful",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/server"
+  },
+  "author": "Sebastian Cardozo",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "~1.3.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xosebastian/geopagos.git"
+  }
+}
