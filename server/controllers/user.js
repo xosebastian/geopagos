@@ -66,8 +66,7 @@ app.put('/user/edit/:email', (req, res) => {
 app.put('/user/status/:email', (req, res) => {
 
     let email = req.params.email;
-    let status = true;
-
+    
       User.find( { $and: [{ email}, {delete : false}]} , (err, userDB)=>{
         if(err || userDB.length <= 0){
             return res.status(HTTP_BAD_REQUEST).json({
@@ -76,7 +75,7 @@ app.put('/user/status/:email', (req, res) => {
             })
         }
         User.update({email: email}, {
-            status, 
+            status : true, 
         }, (err, update) => {
             if(err){
                 return res.status(HTTP_BAD_REQUEST).json({
@@ -95,8 +94,31 @@ app.put('/user/status/:email', (req, res) => {
 
 /* Delete User */
 app.delete('/user/delete/:email', (req, res) => {
+
     let email = req.params.email;
-    res.json(`Eliminar usuario: ${email}`)
+
+    User.find( { $and: [{ email}, {delete : false}]} , (err, userDB)=>{
+        if(err || userDB.length <= 0){
+            return res.status(HTTP_BAD_REQUEST).json({
+                status: false,
+                message : err ? err : 'User Not Found'
+            })
+        }
+        User.update({email: email}, {
+            delete : true, 
+        }, (err, update) => {
+            if(err){
+                return res.status(HTTP_BAD_REQUEST).json({
+                    status: false,
+                    message : err
+                })
+            }
+            res.json({
+               status: true,
+               update,
+           });
+        })
+    })
 })
 
 
