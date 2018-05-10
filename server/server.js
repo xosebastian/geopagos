@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 const app = express();
  
 app.get('/', function (req, res) {
-  res.json('Hello World')
+  res.json('Hello World como estas :DDDD')
 })
 
 // parse application/x-www-form-urlencoded
@@ -17,7 +17,8 @@ app.use(bodyParser.json())
 
 /* Create User */
 app.post('/user/create', (req, res) => {
-    res.json('Se creo el usuario correctamente')
+    let body = req.body;
+    res.json(body);
 })
 
 /* Edit User */
