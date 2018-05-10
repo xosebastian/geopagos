@@ -26,18 +26,13 @@ let userSchema = new Schema(
         status: {
             type : Boolean,
             default : false,
-        },
-        delete: {
-            type : Boolean,
-            default : false,
-        },
-
+        }
     }
 );
 
 userSchema.methods.toJSON = function() {
     let obj = this.toObject()
-    delete obj.delete
+    delete obj.status
     return obj
 }
 
