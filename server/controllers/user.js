@@ -1,5 +1,6 @@
 import express from "express";
 import User from '../models/user';
+import _ from 'underscore';
 import { HTTP_BAD_REQUEST } from "../config/constant";
 
 const app = express();
@@ -33,16 +34,12 @@ app.post('/user/create', (req, res) => {
 app.put('/user/edit/:email', (req, res) => {
 
     let email = req.params.email;
-    let body = req.body;
-
+    let body = _.pick(req.body, ['name', 'surname', 'adress']);
     let query   = { email, delete : false }; 
-    let update  = { name: body.name, 
-                    surname : body.surname, 
-                    adress : body.adress
-                  }; 
     let options = { new: true }; 
-    User.findOneAndUpdate(query, update, options, function(err, userDB){ 
-        if(err || !userDB){
+
+    User.findOneAndUpdate(query, body, options, (err, userDB) => { 
+        if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
                 message : err ? err : 'User Not Found'
@@ -61,13 +58,13 @@ app.put('/user/edit/:email', (req, res) => {
 app.put('/user/activate/:email', (req, res) => {
 
     let email = req.params.email;
-    let body = req.body;
+    let body  = { status: true}; 
 
     let query   = { email, delete : false }; 
-    let update  = { status: true}; 
     let options = { new: true }; 
-    User.findOneAndUpdate(query, update, options, function(err, userDB){ 
-        if(err || !userDB){
+
+    User.findOneAndUpdate(query, body, options, (err, userDB) => { 
+        if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
                 message : err ? err : 'User Not Found'
@@ -85,13 +82,13 @@ app.put('/user/activate/:email', (req, res) => {
 app.delete('/user/delete/:email', (req, res) => {
 
     let email = req.params.email;
-    let body = req.body;
+    let body  = { delete: true}; 
 
     let query   = { email }; 
-    let update  = { delete: true}; 
     let options = { new: true }; 
-    User.findOneAndUpdate(query, update, options, function(err, userDB){ 
-        if(err || !userDB){
+
+    User.findOneAndUpdate(query, body, options, function(err, userDB){ 
+        if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
                 message : err ? err : 'User Not Found'
