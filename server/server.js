@@ -4,7 +4,7 @@ import express from "express";
 import mongoose from 'mongoose';
 import bodyParser from "body-parser";
 
-import user from './routes/user';
+import user from './controller/user';
 
 const app = express();
 
