@@ -35,10 +35,9 @@ app.put('/user/edit/:email', (req, res) => {
 
     let email = req.params.email;
     let body = _.pick(req.body, ['name', 'surname', 'adress']);
-    let query   = { email, delete : false }; 
     let options = { new: true }; 
 
-    User.findOneAndUpdate(query, body, options, (err, userDB) => { 
+    User.findOneAndUpdate(email, body, options, (err, userDB) => { 
         if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
@@ -58,10 +57,10 @@ app.put('/user/edit/:email', (req, res) => {
 app.put('/user/activate/:email', (req, res) => {
 
     let email = req.params.email;
-    let body  = { status: true}; 
+    let query  = { status: true}; 
     let options = { new: true }; 
 
-    User.findOneAndUpdate(email, body, options, (err, userDB) => { 
+    User.findOneAndUpdate(email, query, options, (err, userDB) => { 
         if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
@@ -80,10 +79,10 @@ app.put('/user/activate/:email', (req, res) => {
 app.delete('/user/delete/:email', (req, res) => {
 
     let email = req.params.email;
-    let body  = { delete: true}; 
+    let query  = { status: false}; 
     let options = { new: true }; 
 
-    User.findOneAndUpdate(email, body, options, function(err, userDB){ 
+    User.findOneAndUpdate(email, query, options, (err, userDB) =>{ 
         if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
@@ -98,6 +97,26 @@ app.delete('/user/delete/:email', (req, res) => {
 
 })
 
+app.get('/users',(req, res) => {
+
+    let query   = { status : true }; 
+    
+    User.find(query)
+        .exec((err, users) => {
+        if(err){
+            return res.status(HTTP_BAD_REQUEST).json({
+                status: false,
+                message : err
+            })
+        }
+        res.json({
+            status: true,
+            users
+        });
+
+    })
+
+})
 
 
 module.exports = app;
