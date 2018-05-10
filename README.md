@@ -2,8 +2,8 @@
 API RESTful
 
 ## Requirements
-
 - git
+- mongodb
 - Node v6
 - npm v3
 
