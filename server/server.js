@@ -1,5 +1,7 @@
+import "./config/config";
 import express from "express";
 import bodyParser from "body-parser";
+import { HTTP_BAD_REQUEST } from "./config/constant";
 
 const app = express();
  
@@ -15,10 +17,21 @@ app.use(bodyParser.json())
 
 /* ---------------------- */
 
+
+
 /* Create User */
 app.post('/user/create', (req, res) => {
     let body = req.body;
-    res.json(body);
+
+    if(!(body.name && body.surname && body.email)){
+        res.status(HTTP_BAD_REQUEST).json({
+            status: false,
+            message : "El nombre, apellido e email son obligatorios."
+        })
+    }else{   
+        res.json({'persona' : body});
+    }
+
 })
 
 /* Edit User */
@@ -40,6 +53,6 @@ app.put('/user/validate', (req, res) => {
 
 
  
-app.listen(3000, () => {
-    console.log('Escuchando el puerto:', 3000);
+app.listen(process.env.PORT, () => {
+    console.log('Escuchando el puerto:', process.env.PORT);
 })
