@@ -1,6 +1,12 @@
 # geopagos
 API RESTful
 
+## Requirements
+
+- git
+- Node v6
+- npm v3
+
 ## Installation
 
 ```bash
