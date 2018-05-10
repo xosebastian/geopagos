@@ -59,11 +59,9 @@ app.put('/user/activate/:email', (req, res) => {
 
     let email = req.params.email;
     let body  = { status: true}; 
-
-    let query   = { email, delete : false }; 
     let options = { new: true }; 
 
-    User.findOneAndUpdate(query, body, options, (err, userDB) => { 
+    User.findOneAndUpdate(email, body, options, (err, userDB) => { 
         if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
@@ -83,11 +81,9 @@ app.delete('/user/delete/:email', (req, res) => {
 
     let email = req.params.email;
     let body  = { delete: true}; 
-
-    let query   = { email }; 
     let options = { new: true }; 
 
-    User.findOneAndUpdate(query, body, options, function(err, userDB){ 
+    User.findOneAndUpdate(email, body, options, function(err, userDB){ 
         if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
