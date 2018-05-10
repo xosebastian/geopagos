@@ -63,10 +63,10 @@ app.put('/user/edit/:email', (req, res) => {
 
 
 /* Status User */
-app.put('/user/status/:email', (req, res) => {
+app.put('/user/activate/:email', (req, res) => {
 
     let email = req.params.email;
-    
+
       User.find( { $and: [{ email}, {delete : false}]} , (err, userDB)=>{
         if(err || userDB.length <= 0){
             return res.status(HTTP_BAD_REQUEST).json({
