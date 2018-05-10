@@ -1,18 +1,18 @@
 import "./config/config";
+
 import express from "express";
+import mongoose from 'mongoose';
 import bodyParser from "body-parser";
+
 import { HTTP_BAD_REQUEST } from "./config/constant";
 
 const app = express();
  
 app.get('/', function (req, res) {
-  res.json('Hello World')
+  res.json('Hello World!')
 })
 
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
- 
-// parse application/json
 app.use(bodyParser.json())
 
 /* Create User */
@@ -48,7 +48,13 @@ app.put('/user/validate', (req, res) => {
 })
 
 
- 
+mongoose.connect('mongodb://localhost:27017/geopagos', (err, rsp) => {
+
+    if(err) throw err;
+    console.log(' Base de datos: ', "\x1b[32m", 'Online', "\x1b[0m");
+
+}); 
+
 app.listen(process.env.PORT, () => {
-    console.log('Escuchando el puerto:', process.env.PORT);
+    console.log(' Escuchando el puerto:', "\x1b[34m", process.env.PORT, "\x1b[0m");
 })
