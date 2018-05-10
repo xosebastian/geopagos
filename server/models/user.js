@@ -20,8 +20,12 @@ let userSchema = new Schema(
             type : String,
         },
         status: {
-            type : String,
+            type : Boolean,
             default : true,
+        },
+        delete: {
+            type : Boolean,
+            default : false,
         },
 
     }
