@@ -41,7 +41,7 @@ app.put('/user/edit/:email', (req, res) => {
         if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
-                message : err ? err : 'User Not Found'
+                message : err ? err : 'El usuario no existe'
             })
         }
         res.json({
@@ -64,7 +64,7 @@ app.put('/user/activate/:email', (req, res) => {
         if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
-                message : err ? err : 'User Not Found'
+                message : err ? err : 'El usuario no existe'
             })
         }
         res.json({
@@ -86,7 +86,7 @@ app.delete('/user/delete/:email', (req, res) => {
         if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
-                message : err ? err : 'User Not Found'
+                message : err ? err : 'El usuario no existe'
             })
         }
         res.json({
@@ -100,7 +100,7 @@ app.delete('/user/delete/:email', (req, res) => {
 app.get('/users',(req, res) => {
 
     let query   = { status : true }; 
-    
+
     User.find(query)
         .exec((err, users) => {
         if(err){
