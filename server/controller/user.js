@@ -27,16 +27,6 @@ app.post('/user/create', (req, res) => {
             'user' : userDB
         });
     });
-
-    /*if(!(body.name && body.surname && body.email)){
-        res.status(HTTP_BAD_REQUEST).json({
-            status: false,
-            message : "El nombre, apellido e email son obligatorios."
-        })
-    }else{   
-        res.json({'user' : body});
-    }*/
-
 })
 
 /* Edit User */

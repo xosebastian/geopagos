@@ -13,13 +13,9 @@ app.use(bodyParser.json())
 
 app.use(user);
 
-
-
 mongoose.connect('mongodb://localhost:27017/GeoPagos', (err, rsp) => {
-
     if(err) throw err;
     console.log(' Base de datos: ', "\x1b[32m", 'ONLINE', "\x1b[0m");
-
 }); 
 
 app.listen(process.env.PORT, () => {
