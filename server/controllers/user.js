@@ -30,9 +30,43 @@ app.post('/user/create', (req, res) => {
 })
 
 /* Edit User */
-app.put('/user/edit', (req, res) => {
-    res.json('Editar Usuario')
+app.put('/user/edit/:email', (req, res) => {
+
+    let email = req.params.email;
+    let body = req.body;
+
+    User.find( { $and: [{ email}, {delete : false}]} , (err, userDB)=>{
+        if(err || userDB.length <= 0){
+            return res.status(HTTP_BAD_REQUEST).json({
+                status: false,
+                message : err ? err : 'User Not Found'
+            })
+        }
+        User.update({email: email}, {
+            name: body.name, 
+            surname: body.surname,
+            adress: body.adress,
+        }, (err, update) => {
+            if(err){
+                return res.status(HTTP_BAD_REQUEST).json({
+                    status: false,
+                    message : err
+                })
+            }
+            res.json({
+               status: true,
+               update,
+           });
+        })
+    })
 })
+
+
+/* Status User */
+app.put('/user/status', (req, res) => {
+    res.json('Se creo el usuario correctamente')
+})
+
 
 /* Delete User */
 app.delete('/user/delete/:email', (req, res) => {
@@ -40,9 +74,6 @@ app.delete('/user/delete/:email', (req, res) => {
     res.json(`Eliminar usuario: ${email}`)
 })
 
-/* Status User */
-app.put('/user/status', (req, res) => {
-    res.json('Se creo el usuario correctamente')
-})
+
 
 module.exports = app;
