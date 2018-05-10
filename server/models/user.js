@@ -21,7 +21,7 @@ let userSchema = new Schema(
         },
         status: {
             type : Boolean,
-            default : true,
+            default : false,
         },
         delete: {
             type : Boolean,
