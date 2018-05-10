@@ -82,7 +82,7 @@ app.delete('/user/delete/:email', (req, res) => {
     let body  = { status: false}; 
     let options = { new: true }; 
 
-    User.findOneAndUpdate({email : email} , body, options, (err, userDB) =>{ 
+    User.findOneAndUpdate({email : email}, body, options, (err, userDB) =>{ 
         if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,

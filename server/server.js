@@ -4,14 +4,14 @@ import express from "express";
 import mongoose from 'mongoose';
 import bodyParser from "body-parser";
 
-import user from './controllers/user';
+import controllers from './controllers/index';
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use(user);
+app.use(controllers);
 
 mongoose.connect('mongodb://localhost:27017/GeoPagos', (err, rsp) => {
     if(err) throw err;
