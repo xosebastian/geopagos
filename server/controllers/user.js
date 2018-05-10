@@ -97,7 +97,7 @@ app.delete('/user/delete/:email', (req, res) => {
 
 })
 
-app.get('/users',(req, res) => {
+app.get('/user',(req, res) => {
 
     let query   = { status : true }; 
 
@@ -109,10 +109,15 @@ app.get('/users',(req, res) => {
                 message : err
             })
         }
-        res.json({
-            status: true,
-            users
-        });
+        User.count(query, (err, count) => {
+
+            res.json({
+                status: true,
+                users,
+                count
+            });
+
+        })
 
     })
 
