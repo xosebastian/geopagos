@@ -37,7 +37,7 @@ app.put('/user/edit/:email', (req, res) => {
     let body = _.pick(req.body, ['name', 'surname', 'adress']);
     let options = { new: true }; 
 
-    User.findOneAndUpdate(email, body, options, (err, userDB) => { 
+    User.findOneAndUpdate({email : email} , body, options, (err, userDB) => { 
         if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
@@ -57,10 +57,10 @@ app.put('/user/edit/:email', (req, res) => {
 app.put('/user/activate/:email', (req, res) => {
 
     let email = req.params.email;
-    let query  = { status: true}; 
-    let options = { new: true }; 
+    let body  = { status: true}; 
+    let options = { new: false }; 
 
-    User.findOneAndUpdate(email, query, options, (err, userDB) => { 
+    User.findOneAndUpdate({email : email}  , body, options, (err, userDB) => { 
         if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
@@ -79,10 +79,10 @@ app.put('/user/activate/:email', (req, res) => {
 app.delete('/user/delete/:email', (req, res) => {
 
     let email = req.params.email;
-    let query  = { status: false}; 
+    let body  = { status: false}; 
     let options = { new: true }; 
 
-    User.findOneAndUpdate(email, query, options, (err, userDB) =>{ 
+    User.findOneAndUpdate({email : email} , body, options, (err, userDB) =>{ 
         if(err || _.isEmpty(userDB)){
             return res.status(HTTP_BAD_REQUEST).json({
                 status: false,
