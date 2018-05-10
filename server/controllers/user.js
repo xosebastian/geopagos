@@ -63,8 +63,33 @@ app.put('/user/edit/:email', (req, res) => {
 
 
 /* Status User */
-app.put('/user/status', (req, res) => {
-    res.json('Se creo el usuario correctamente')
+app.put('/user/status/:email', (req, res) => {
+
+    let email = req.params.email;
+    let status = true;
+
+      User.find( { $and: [{ email}, {delete : false}]} , (err, userDB)=>{
+        if(err || userDB.length <= 0){
+            return res.status(HTTP_BAD_REQUEST).json({
+                status: false,
+                message : err ? err : 'User Not Found'
+            })
+        }
+        User.update({email: email}, {
+            status, 
+        }, (err, update) => {
+            if(err){
+                return res.status(HTTP_BAD_REQUEST).json({
+                    status: false,
+                    message : err
+                })
+            }
+            res.json({
+               status: true,
+               update,
+           });
+        })
+    })
 })
 
 
