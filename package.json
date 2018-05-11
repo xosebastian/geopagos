@@ -15,6 +15,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "mongoose": "^5.0.18",
+    "mongoose-double": "0.0.1",
     "mongoose-unique-validator": "^2.0.1",
     "underscore": "^1.9.0",
     "validator": "^10.2.0"
