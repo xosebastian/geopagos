@@ -62,6 +62,7 @@ app.delete('/sale/delete/:id', (req, res) => {
 
 })
 
+/* View Sales */
 app.get('/sale/:email',(req, res) => {
     let email = req.params.email;
     let query   = { user_email : email }; 

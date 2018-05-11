@@ -1,6 +1,7 @@
 import express from "express";
-import User from '../models/user';
 import _ from 'underscore';
+import User from '../models/user';
+import Sale from '../models/sale';
 import { HTTP_BAD_REQUEST } from "../config/constant";
 
 const app = express();
@@ -97,6 +98,7 @@ app.delete('/user/delete/:email', (req, res) => {
 
 })
 
+/* View Users */
 app.get('/user',(req, res) => {
     User.find()
         .exec((err, users) => {
