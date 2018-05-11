@@ -98,7 +98,6 @@ app.delete('/user/delete/:email', (req, res) => {
 })
 
 app.get('/user',(req, res) => {
-    console.log('asd');
     let query   = { status : true }; 
 
     User.find(query)

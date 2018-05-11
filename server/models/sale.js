@@ -4,7 +4,7 @@ require('mongoose-double')(mongoose);
 import User from './user';
 import isEmail from 'validator/lib/isEmail'
 
-var SchemaTypes = mongoose.Schema.Types;
+const SchemaTypes = mongoose.Schema.Types;
 
 const Schema = mongoose.Schema;
 
@@ -30,7 +30,6 @@ let saleSchema = new Schema(
         status: {
             type : Boolean,
             default : true,
-            required : [true, "La fecha es requerida"]
         }
     }
 );

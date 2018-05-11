@@ -37,10 +37,54 @@ app.post('/sale/create', (req, res) => {
         });
 
     })
+})
 
+
+/* Delete Sale */
+app.delete('/sale/delete/:id', (req, res) => {
+
+    let id = req.params.id;
+    let update  = { status: false}; 
+    let options = { new: true };
+
+    Sale.findByIdAndUpdate(id, update, options, (err, saleDB) =>{ 
+        if(err || _.isEmpty(saleDB)){
+            return res.status(HTTP_BAD_REQUEST).json({
+                status: false,
+                message : err ? err : 'La venta no existe'
+            })
+        }
+        res.json({
+            status: true,
+            sale: saleDB,
+        });
+    });
 
 })
 
+app.get('/sale/:email',(req, res) => {
+    let email = req.params.email;
+    let query   = { user_email : email }; 
+    Sale.find(query)
+        .exec((err, saleDB) => {
+        if(err || _.isEmpty(saleDB)){
+            return res.status(HTTP_BAD_REQUEST).json({
+                status: false,
+                message : err ? err : 'No existen ventas'
+            })
+        }
+        Sale.count(query, (err, count) => {
+            res.json({
+                status: true,
+                sale: saleDB,
+                count
+            });
+
+        })
+
+    })
+
+})
 
 
 
