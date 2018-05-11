@@ -6,4 +6,4 @@ const app = express();
 
 app.use(user, sale);
 
-module.exports = app;
+export default app;

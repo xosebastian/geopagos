@@ -121,4 +121,4 @@ app.get('/user',(req, res) => {
 })
 
 
-module.exports = app;
+export default app;
