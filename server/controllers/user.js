@@ -98,9 +98,7 @@ app.delete('/user/delete/:email', (req, res) => {
 })
 
 app.get('/user',(req, res) => {
-    let query   = { status : true }; 
-
-    User.find(query)
+    User.find()
         .exec((err, users) => {
         if(err){
             return res.status(HTTP_BAD_REQUEST).json({
@@ -108,7 +106,7 @@ app.get('/user',(req, res) => {
                 message : err
             })
         }
-        User.count(query, (err, count) => {
+        User.count((err, count) => {
 
             res.json({
                 status: true,

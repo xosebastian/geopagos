@@ -30,11 +30,11 @@ let userSchema = new Schema(
     }
 );
 
-userSchema.methods.toJSON = function() {
+/*userSchema.methods.toJSON = function() {
     let obj = this.toObject()
     delete obj.status
     return obj
-}
+}*/
 
 userSchema.plugin( uniqueValidator, {message: 'El {PATH} debe de ser único'});
 
