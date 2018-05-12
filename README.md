@@ -1,3 +1,11 @@
+# geopagos
+API RESTful
+
+## Requirements
+- git
+- mongodb
+- Node v6
+- npm v3
 
 ## Installation
 To run the app locally:
