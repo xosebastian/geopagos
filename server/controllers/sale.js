@@ -39,7 +39,7 @@ app.post('/sale/create', (req, res) => {
             });
         });
         
-
+    })
 })
 
 
@@ -89,7 +89,7 @@ app.get('/sale/:email',(req, res) => {
     })
 })
 
-})
+
 
 
 export default app;
