@@ -3,6 +3,7 @@ import Sale from '../models/sale'
 import User from '../models/user';
 import _ from 'underscore';
 import { HTTP_BAD_REQUEST } from "../config/constant";
+import user from "../models/user";
 
 const app = express();
 
@@ -30,13 +31,15 @@ app.post('/sale/create', (req, res) => {
                     message : err
                 })
             }
+            userDB.sales.push(saleDB);
+            userDB.save()
             res.json({
                 status: true,
                 'sale' : saleDB
             });
         });
+        
 
-    })
 })
 
 
@@ -84,6 +87,7 @@ app.get('/sale/:email',(req, res) => {
         })
 
     })
+})
 
 })
 

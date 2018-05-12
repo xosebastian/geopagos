@@ -20,7 +20,7 @@ let saleSchema = new Schema(
             required : [true, "El email es requerido"]
         },
         amount: {
-            type : SchemaTypes.Double,
+            type : Number,
             required : [true, "El valor es requerido"]
         },
         date: {

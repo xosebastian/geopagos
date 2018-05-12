@@ -1,6 +1,7 @@
 import mongoose, { mongo, Mongoose } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 import isEmail from 'validator/lib/isEmail'
+import Sale from './sale';
 
 const Schema = mongoose.Schema;
 
@@ -26,7 +27,10 @@ let userSchema = new Schema(
         status: {
             type : Boolean,
             default : false,
-        }
+        },
+        sales: [{
+            type: Schema.Types.ObjectId, ref: "Sale",
+        }],
     }
 );
 

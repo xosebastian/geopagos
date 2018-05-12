@@ -100,25 +100,28 @@ app.delete('/user/delete/:email', (req, res) => {
 
 /* View Users */
 app.get('/user',(req, res) => {
-    User.find()
-        .exec((err, users) => {
-        if(err){
-            return res.status(HTTP_BAD_REQUEST).json({
-                status: false,
-                message : err
-            })
-        }
-        User.count((err, count) => {
 
-            res.json({
-                status: true,
-                users,
-                count
-            });
+    User.aggregate([
+        {$lookup:{
+          from:"sales",
+          localField:"sales",
+          foreignField:"_id",
+          as:"sales"
+        }},
+        {$addFields:{
+          total_sales:{
+            $sum :{"$cond": {if: "$sales.status", then: "$sales.amount", else: 0} }
+            //$sum : { $cond : [ {$eq : [ "$sales.status", true]} , 5, "$sales.amount" ] }
+          },
+        }},
+      ],(err, usersDB) => {
 
-        })
+        res.json({
+            status: true,
+            users : usersDB,
+        });
 
-    })
+      })
 
 })
 
