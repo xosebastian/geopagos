@@ -1,4 +1,4 @@
-# geopagos
+# pagos
 API RESTful
 
 ## Requirements
